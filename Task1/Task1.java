@@ -4,15 +4,18 @@ import java.util.concurrent.TimeUnit;
 
 public class FirstMethod {
     public static void main(String[] args) throws InterruptedException {
+        // Определяем количество используемой памяти
         long usedBytes = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         int[] array;
         array = new int[10000];
 
+        // Заполняем массив
         for (int i = 0; i < array.length; i++) {
             array[i] = i;
         }
 
+        // Измеряем время выполнения и находим максимальный элемент
         long start = System.currentTimeMillis();
         int max = array[0];
         for(int i = 0; i < array.length; i++){
@@ -23,9 +26,10 @@ public class FirstMethod {
         long finish = System.currentTimeMillis();
         long time = finish - start;
         System.out.println("Задействовано " + usedBytes + " байт\n"
-                + "Время выполнения: " + time + " милисекунды\n" + "Максимальный элемент массива: " + max);
+                + "Время выполнения: " + time + " миллисекунды\n" + "Максимальный элемент массива: " + max);
     }
 }
+
 package Task1;
 
 import java.util.Arrays;
@@ -37,7 +41,10 @@ import java.util.concurrent.TimeUnit;
 public class ForkJoinMethod {
 
     public static void main(String[] args) throws Exception {
+        // Определяем количество используемой памяти
         long usedBytes = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        
+        // Получаем и инициализируем массив
         int[] array = getInitArray(10000);
 
         ValueMaxCounter counter = new ValueMaxCounter(array);
@@ -52,10 +59,10 @@ public class ForkJoinMethod {
         System.out.println(new Date());
 
         System.out.println("Задействовано " + usedBytes + " байт\n"
-                + "Время выполнения: " + time + " милисекунды\n");
+                + "Время выполнения: " + time + " миллисекунды\n");
     }
 
-    //заполнение массива
+    // Заполняем массив
     public static int[] getInitArray(int capacity) {
         int[] array = new int[capacity];
         for (int i = 0; i < capacity; i++) {
@@ -64,6 +71,7 @@ public class ForkJoinMethod {
         return array;
     }
 }
+
 package Task1;
 
 import java.util.ArrayList;
@@ -97,17 +105,15 @@ public class FutureThreadMethod {
         long end = System.currentTimeMillis();
         long usedBytes = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         System.out.println("Задействовано " + usedBytes
-                + " байт\n" + "Время выполнения: " + (end - start) + " милисекунды\n"
+                + " байт\n" + "Время выполнения: " + (end - start) + " миллисекунды\n"
                 + "Максимальный элемент массива: " + result);
         return result;
     }
-
 }
 
 package Task1;
 
 import java.util.concurrent.CountDownLatch;
-
 class MyThread extends Thread {
 
     public int[] arr;
